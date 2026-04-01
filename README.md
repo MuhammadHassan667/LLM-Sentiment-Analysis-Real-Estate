@@ -3,100 +3,115 @@ BERT · RoBERTa · GPT-4 · Aspect-Based Sentiment Analysis
 
 MSc Data Analytics Dissertation — Berlin School of Business & Innovation (BSBI), 2026
 
-
 📌 Overview
-This dissertation investigates how well large language models (LLMs) can understand and classify customer sentiment in the real estate sector. Using Aspect-Based Sentiment Analysis (ABSA), three models — BERT, RoBERTa, and GPT-4 — were evaluated on their ability to detect nuanced sentiment across specific aspects of the customer experience.
-The study combined 785 real-world reviews from Trustpilot and Airbnb with primary survey data, providing both breadth (large-scale online reviews) and depth (structured survey responses) for a robust comparison.
+This dissertation investigates how well large language models (LLMs) can understand and classify customer sentiment in the real estate sector. Using Aspect-Based Sentiment Analysis (ABSA), three models — BERT, RoBERTa, and GPT-4 — were evaluated on their ability to detect nuanced sentiment across three specific aspects of the customer experience: price, location, and agent behaviour.
+The study combined 785 real-world reviews from Trustpilot and Airbnb (secondary data) with a structured primary survey, providing both scale and depth for a robust cross-source comparison.
 
 🎯 Research Questions
 
 How accurately can BERT, RoBERTa, and GPT-4 classify sentiment in real estate customer reviews?
-Which model performs best across different sentiment aspects (price, location, agent behaviour)?
-Do significant differences exist between model performance using statistical validation?
+Which aspects (price, location, agent behaviour) drive the most positive and negative sentiment?
+Do sentiment patterns differ between primary survey responses and secondary online reviews?
+Are the differences between model performances statistically significant?
 
 
 📊 Dataset
-SourceTypeVolumeTrustpilotReal estate agency reviewsPublic reviewsAirbnbProperty rental feedbackPublic reviewsPrimary SurveyStructured questionnaire responsesOriginal data collectionTotalCombined corpus785 reviews
-Aspect dimensions analysed:
+SourceTypeDescriptionTrustpilotSecondaryReal estate agency reviews — scraped public reviewsAirbnbSecondaryProperty rental customer feedbackPrimary SurveyPrimaryStructured questionnaire with open-text responsesTotalCombined785 reviews + survey responses
+Survey questions analysed:
 
-💰 Price — sentiment around cost, value for money, fees
-📍 Location — sentiment around area, accessibility, neighbourhood
-🤝 Agent Behaviour — sentiment around responsiveness, professionalism, communication
+"What did you like most about your experience?"
+"What could be improved?"
+Overall experience rating, property description accuracy, agent communication, likelihood to recommend
 
 
 🧠 Models Compared
-ModelTypeArchitectureBERTBidirectional Encoderbert-base-uncasedRoBERTaRobustly Optimised BERTroberta-baseGPT-4Generative Pre-trained TransformerOpenAI GPT-4 API
-All models were evaluated using the same labelled dataset to ensure fair comparison.
+ModelArchitectureApproachBERTbert-base-uncasedFine-tuned for sentiment classificationRoBERTaroberta-baseRobustly optimised BERT pre-trainingGPT-4OpenAI GPT-4Zero-shot and prompt-based classification
 
 🔬 Methodology
-Data Collection (Trustpilot + Airbnb + Survey)
+Data Collection
+├── Secondary: Trustpilot + Airbnb reviews
+└── Primary: Structured survey (open-text + Likert scale)
         │
         ▼
-Data Preprocessing & Cleaning
+Preprocessing & Cleaning
         │
         ▼
-Aspect Extraction (Price · Location · Agent Behaviour)
+Aspect Extraction
+├── Price
+├── Location
+└── Agent Behaviour
         │
         ▼
 Sentiment Classification per Aspect
-   ┌────┴────┐─────────┐
-  BERT   RoBERTa    GPT-4
+├── BERT
+├── RoBERTa
+└── GPT-4
         │
         ▼
 Statistical Validation
-  Chi-square Test · ANOVA
+├── Chi-square Test (distribution differences)
+└── ANOVA (model performance comparison)
         │
         ▼
-Results & Comparative Analysis
+Cross-Source Comparison (Primary vs Secondary)
 
 📈 Key Findings
+Sentiment Distribution per Aspect
+Stacked bar chart showing how positive, neutral, and negative sentiment is distributed across price, location, and agent behaviour aspects across the full dataset.
+Show Image
+Sentiment Comparison Across Datasets (Primary vs Secondary)
+Grouped bar chart comparing how sentiment varies across aspects when broken down by data source — primary survey responses vs secondary online reviews.
+Show Image
+Primary Survey Sentiment — Likes vs Improvements
+Side-by-side sentiment distribution for open-text survey responses: what respondents liked most vs what they felt could be improved.
+Show Image
+Survey Rating Results
+Four-panel chart showing distribution of Likert-scale responses across: overall experience, property description accuracy, agent communication satisfaction, and likelihood to recommend.
+Show Image
+Key findings summary:
 
-RoBERTa achieved the highest overall accuracy in sentiment classification across all three aspect dimensions
-GPT-4 demonstrated strongest performance on nuanced, context-dependent sentiment (agent behaviour)
-BERT provided a solid baseline but was outperformed in fine-grained aspect classification
-Price was the most negatively-discussed aspect across both Trustpilot and Airbnb reviews
-Location was the most positively-discussed aspect overall
+Price attracted the highest proportion of negative sentiment across both primary and secondary data
+Location was the most consistently positively-discussed aspect
 Agent Behaviour showed the most mixed and context-dependent sentiment — hardest for all models to classify consistently
-Statistical validation via Chi-square and ANOVA confirmed significant differences between model performance
+Significant differences confirmed between model performance via Chi-square and ANOVA testing
+Primary and secondary data sources showed notably different sentiment distributions for the agent behaviour aspect
 
 
 🛠️ Tech Stack
-CategoryToolsLanguagePython 3.10+NLP ModelsBERT, RoBERTa (Hugging Face Transformers), GPT-4 (OpenAI API)LibrariesPandas, NumPy, Scikit-learn, Matplotlib, SeabornStatistical TestingSciPy (Chi-square, ANOVA)EnvironmentJupyter NotebookVersion ControlGit & GitHub
+CategoryToolsLanguagePython 3NLP ModelsBERT, RoBERTa (Hugging Face Transformers), GPT-4 (OpenAI API)Data AnalysisPandas, NumPyVisualisationMatplotlib, SeabornMLScikit-learnStatistical TestingSciPy (Chi-square, ANOVA)EnvironmentGoogle Colab / Jupyter NotebookVersion ControlGit & GitHub
 
 📁 Repository Structure
-llm-sentiment-analysis-real-estate/
-│
-├── data/
-│   ├── raw/                    # Raw review data (anonymised)
-│   └── processed/              # Cleaned and labelled dataset
+LLM-Sentiment-Analysis-Real-Estate/
 │
 ├── notebooks/
-│   ├── 01_data_preprocessing.ipynb
-│   ├── 02_bert_classification.ipynb
-│   ├── 03_roberta_classification.ipynb
-│   ├── 04_gpt4_classification.ipynb
-│   └── 05_statistical_validation.ipynb
+│   └── Cleaned_Chapter5_Notebook.ipynb   # Full analysis notebook
 │
 ├── results/
-│   ├── model_comparison.csv    # Accuracy scores per model per aspect
-│   └── figures/                # Charts and visualisations
+│   └── figures/                          # All charts and visualisations
+│       ├── chart_04.png                  # Sentiment distribution per aspect
+│       ├── chart_13.png                  # Primary survey sentiment
+│       ├── chart_14.png                  # Aspect sentiment across datasets
+│       └── chart_19.png                  # Survey rating distributions
 │
 ├── screenshots/
-│   └── thumbnail.png
+│   └── thumbnail.png                     # Project thumbnail
 │
-├── requirements.txt
 └── README.md
 
 🚀 How to Run
-1. Clone the repository
-bashgit clone https://github.com/MuhammadHassan667/llm-sentiment-analysis-real-estate.git
-cd llm-sentiment-analysis-real-estate
-2. Install dependencies
-bashpip install -r requirements.txt
-3. Run notebooks in order
-Open Jupyter and run notebooks 01 through 05 in sequence.
+Option 1 — Google Colab (recommended)
 
-Note: GPT-4 classification requires an OpenAI API key. Add it as an environment variable:
+Open notebooks/Cleaned_Chapter5_Notebook.ipynb in Google Colab
+Run all cells in order
+Ensure your data files are uploaded to the Colab session
+
+Option 2 — Local Jupyter
+bashgit clone https://github.com/MuhammadHassan667/LLM-Sentiment-Analysis-Real-Estate.git
+cd LLM-Sentiment-Analysis-Real-Estate
+pip install -r requirements.txt
+jupyter notebook notebooks/Cleaned_Chapter5_Notebook.ipynb
+
+Note: GPT-4 classification requires an OpenAI API key:
 bashexport OPENAI_API_KEY=your_key_here
 
 
@@ -114,24 +129,20 @@ jupyter>=1.0.0
 
 🔮 Future Work
 
-Extend the dataset beyond 785 reviews for higher statistical power
+Extend corpus beyond 785 reviews for higher statistical power
 Fine-tune BERT and RoBERTa on domain-specific real estate corpora
-Explore GPT-4 with structured prompting vs zero-shot classification
-Apply the methodology to German-language real estate reviews (DACH market)
+Apply methodology to German-language reviews (DACH real estate market)
+Explore structured prompting vs zero-shot for GPT-4 classification
+Expand aspect dimensions beyond the three studied
 
 
 📄 Citation
-If you use this work as reference:
-Hassan, M. (2026). Comparative Analysis of LLMs for Aspect-Based Sentiment 
-Analysis in Real Estate Customer Reviews. MSc Data Analytics Dissertation, 
+Hassan, M. (2026). Comparative Analysis of LLMs for Aspect-Based Sentiment
+Analysis in Real Estate Customer Reviews. MSc Data Analytics Dissertation,
 Berlin School of Business & Innovation (BSBI).
 
 👤 Author
 Muhammad Hassan
-MSc Data Analytics · Berlin School of Business & Innovation
+MSc Data Analytics · Berlin School of Business & Innovation (BSBI)
 🔗 LinkedIn
-📧 Email
 🐙 GitHub
-
-📄 License
-MIT License — feel free to use this as a reference for your own NLP research.
