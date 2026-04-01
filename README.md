@@ -144,5 +144,5 @@ Berlin School of Business & Innovation (BSBI).
 👤 Author
 Muhammad Hassan
 MSc Data Analytics · Berlin School of Business & Innovation (BSBI)
-🔗 LinkedIn
-🐙 GitHub
+🔗 LinkedIn : www.linkedin.com/in/muhammad-hassan-saeed541
+🐙 GitHub : 
